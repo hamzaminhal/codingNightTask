@@ -15,7 +15,15 @@ let searchIcon = document.querySelector("#search-icon");
 let feedPostsContainer = document.getElementById("feed-posts");
 let allPosts = [];
 let likeStatus = false;
+const modal = document.getElementById("taskModal");
+const openBtn = document.getElementById("openModalBtn");
+const closeBtn = document.querySelector(".close");
+const imageInput = document.getElementById("imageInput");
+const previewImage = document.getElementById("previewImage");
+const previewContainer = document.getElementById("taskModal");
+const submitBtn = document.getElementById("submitTask");
 
+// IIFE
 (function () {
   if (loggedUserData) {
     loggedUsername.textContent = loggedUserData.username;
@@ -41,6 +49,7 @@ profileId.addEventListener("click", () => {
   }
 });
 
+// Logout Function
 function logout() {
   localStorage.removeItem("logged");
   userDetails.classList.add("hide");
@@ -53,7 +62,7 @@ class post {
   constructor(content, publisher) {
     this.content = content;
     this.publisher = publisher;
-    this.postTime = new Date().toISOString();
+    this.postTime = new Date().toISOString().slice(0, 19).replace("T", " ");
     this.likes = 0;
     this.isLike = false;
     this.comments = [];
@@ -64,6 +73,14 @@ class post {
 // publish post
 
 function publishPost() {
+  // let file = imageInput.files[0];
+  // const reader = new FileReader();
+  // reader.onload = function (e) {
+  //   previewImage.src = e.target.result; // Base64 URL of image
+  // };
+  // let url = reader.readAsDataURL(file);
+  // console.log(url);
+
   let content = document.querySelector("#post-text");
   let owner = JSON.parse(localStorage.getItem("logged"));
   delete owner.password;
@@ -115,7 +132,7 @@ function displayPosts(posts) {
                 <div>
                   <div class="feed-heading">${newPost.publisher.username}</div>
                   <div>
-                    ${createAt}
+                    ${newPost.postTime}
                     <svg
                       viewBox="0 0 16 16"
                       width="12"
@@ -147,18 +164,19 @@ function displayPosts(posts) {
                   </div>
                 </div>
               </div>
-              <div
+              <div class="preview-container"
+              <img
               id="previewContainer"
               class="preview-container"
               
-            >
-              <img id="previewImage" />
-            </div>
+            /></div>
+             
+            
               <div class="txt">
                 ${newPost.content}
               </div>
               <div class="feed-card-main-img">
-                <!-- <img src="images/pic1.jpg" alt="" /> -->
+                <img alt="" id="previewImage"/>
               </div>
               <div class="like">
                 <button class="fc-icon btn1" onclick="likeFunction(${newPost.postId})" id="like">
@@ -211,11 +229,10 @@ function displayPosts(posts) {
 function renderPosts() {
   let friendsPosts = [];
   loggedUserData.friends.map((id) => {
-    console.log(id);
     let otherposts = allUsers[id - 1].myPosts;
     friendsPosts = [...friendsPosts, ...otherposts];
   });
-  // console.log(friendsPosts);
+
   allPosts = [...friendsPosts, ...loggedUserData.myPosts];
   // allPosts.sort(() => {
   //   let num = Math.random() - 0.5;
@@ -228,15 +245,6 @@ function renderPosts() {
 }
 renderPosts();
 
-// Elements
-const modal = document.getElementById("taskModal");
-const openBtn = document.getElementById("openModalBtn");
-const closeBtn = document.querySelector(".close");
-const imageInput = document.getElementById("imageInput");
-const previewImage = document.getElementById("previewImage");
-const previewContainer = document.getElementById("taskModal");
-const submitBtn = document.getElementById("submitTask");
-
 // Open Modal
 openBtn.onclick = () => {
   modal.style.display = "flex";
@@ -248,7 +256,7 @@ closeBtn.onclick = () => {
   clearPreview();
 };
 
-// Close When Click Outside
+// Click Outside
 window.onclick = (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
