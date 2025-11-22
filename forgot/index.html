@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../signup/style.css" />
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="text-center">
+        <h1>facebook</h1>
+      </div>
+      <div class="form-div text-center">
+        <form action="">
+          <input type="text" placeholder="Full Name" id="full-name" required />
+          <input
+            type="text"
+            placeholder="Email address or phone number"
+            id="email"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            id="new-password"
+            style="display: none"
+          />
+          <input
+            type="submit"
+            class="create-btn"
+            value="Search User"
+            id="search-btn"
+          />
+          <input
+            type="submit"
+            class="create-btn"
+            value="Change Password"
+            id="change-btn"
+            style="display: none"
+          />
+          <a href="../login/index.html" class="forgot"
+            >Already have an account</a
+          >
+        </form>
+      </div>
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./forgot.js"></script>
+  </body>
+</html>
