@@ -22,6 +22,7 @@ const imageInput = document.getElementById("imageInput");
 const previewImage = document.getElementById("previewImage");
 const previewContainer = document.getElementById("taskModal");
 const submitBtn = document.getElementById("submitTask");
+const displayImg = document.getElementById("previewImg");
 
 // IIFE
 (function () {
@@ -59,7 +60,7 @@ function logout() {
 }
 
 class post {
-  constructor(content, publisher) {
+  constructor(content, publisher, imgUrl) {
     this.content = content;
     this.publisher = publisher;
     this.postTime = new Date().toISOString().slice(0, 19).replace("T", " ");
@@ -67,6 +68,7 @@ class post {
     this.isLike = false;
     this.comments = [];
     this.postId = Date.now();
+    this.imgUrl = imgUrl;
   }
 }
 
@@ -74,9 +76,10 @@ class post {
 
 function publishPost() {
   let content = document.querySelector("#post-text");
+  const imgUrl = document.querySelector("#img-url");
   let owner = JSON.parse(localStorage.getItem("logged"));
   delete owner.password;
-  let feedPost = new post(content.value, owner);
+  let feedPost = new post(content.value, owner, imgUrl.value);
   console.log(feedPost);
   loggedUserData.myPosts.push(feedPost);
   allUsers[loggedUserData.id - 1] = loggedUserData;
@@ -84,6 +87,7 @@ function publishPost() {
   localStorage.setItem("users", JSON.stringify(allUsers));
   renderPosts();
   content.value = "";
+  imgUrl.value = "";
   clearPreview();
 }
 
@@ -101,7 +105,7 @@ function edit(id) {
 
 function deletePost(id) {
   // index of post with incomming id
-  const post = loggedUserData.myPosts.find((post) => post.postId === id);
+  const index = loggedUserData.myPosts.find((post) => post.postId === id);
 
   if (index !== -1) {
     loggedUserData.myPosts.splice(index, 1);
@@ -166,19 +170,14 @@ function displayPosts(posts) {
                   </div>
                 </div>
               </div>
-              <div class="preview-container"
-              <img
-              id="previewContainer"
-              class="preview-container"
               
-            /></div>
              
             
               <div class="txt">
                 ${newPost.content}
               </div>
               <div class="feed-card-main-img">
-                <img alt="" id="previewImage"/>
+                <img src="${newPost.imgUrl}" alt="post Image" id="previewImg"/>
               </div>
               <div class="like">
                 <button class="fc-icon btn1" onclick="likeFunction(${newPost.postId})" id="like">

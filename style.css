@@ -565,13 +565,24 @@ main .post-card .s-line {
   font-size: 15px;
 }
 
+.img-input {
+  width: 90%;
+  height: 40px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 15px;
+}
+
 /* Image Preview */
 .preview-container {
   margin-top: 10px;
 }
 
-#previewImage {
+#previewImg {
   width: 100%;
+  height: 300px;
   border-radius: 12px;
   margin-top: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
