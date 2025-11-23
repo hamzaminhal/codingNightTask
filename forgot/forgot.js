@@ -41,7 +41,7 @@ changeBtn.addEventListener("click", (event) => {
     user.password = newPasswordElement.value;
     localStorage.setItem("users", JSON.stringify(allUsers));
     swal("Success", "Password Changed Succesfully!", "success").then(() => {
-      window.location.replace("./login/index.html");
+      window.location.replace("../login/index.html");
     });
   } else {
     event.preventDefault();
