@@ -87,9 +87,21 @@ function publishPost() {
   clearPreview();
 }
 
+function edit(id) {
+  const post = loggedUserData.myPosts.find((post) => post.postId === id);
+  let newText = prompt("Enter new text");
+  post.content = newText;
+  post.postTime = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+  localStorage.setItem("logged", JSON.stringify(loggedUserData));
+  localStorage.setItem("users", JSON.stringify(allUsers));
+  // console.log(post);
+  renderPosts();
+}
+
 function deletePost(id) {
   // index of post with incomming id
-  const index = loggedUserData.myPosts.findIndex((post) => post.postId === id);
+  const post = loggedUserData.myPosts.find((post) => post.postId === id);
 
   if (index !== -1) {
     loggedUserData.myPosts.splice(index, 1);
@@ -174,7 +186,7 @@ function displayPosts(posts) {
                   
                   Like
                 </button>
-                <button class="fc-icon btn1">
+                <button onClick="edit(${newPost.postId})" class="fc-icon btn1">
                   <i
                     data-visualcompletion="css-img"
                     class="x1b0d499 x1d69dk1"
@@ -188,7 +200,7 @@ function displayPosts(posts) {
                       display: inline-block;
                     "
                   ></i>
-                  Comment
+                  Edit
                 </button>
                 <button onClick="deletePost(${newPost.postId})" class="fc-icon btn1">
                         <svg
