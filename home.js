@@ -73,14 +73,6 @@ class post {
 // publish post
 
 function publishPost() {
-  // let file = imageInput.files[0];
-  // const reader = new FileReader();
-  // reader.onload = function (e) {
-  //   previewImage.src = e.target.result; // Base64 URL of image
-  // };
-  // let url = reader.readAsDataURL(file);
-  // console.log(url);
-
   let content = document.querySelector("#post-text");
   let owner = JSON.parse(localStorage.getItem("logged"));
   delete owner.password;
@@ -96,14 +88,12 @@ function publishPost() {
 }
 
 function deletePost(id) {
-  // Find index of the post with the given id
+  // index of post with incomming id
   const index = loggedUserData.myPosts.findIndex((post) => post.postId === id);
 
   if (index !== -1) {
-    // Remove the post from the array
     loggedUserData.myPosts.splice(index, 1);
 
-    // Update localStorage
     allUsers[loggedUserData.id - 1] = loggedUserData;
     localStorage.setItem("logged", JSON.stringify(loggedUserData));
     localStorage.setItem("users", JSON.stringify(allUsers));
@@ -240,7 +230,6 @@ function renderPosts() {
   // });
   // debugger;
 
-  // console.log(allPosts);
   displayPosts(allPosts);
 }
 renderPosts();
@@ -264,21 +253,10 @@ window.onclick = (e) => {
   }
 };
 
-// Image Preview Function
-// imageInput.onchange = (e) => {
-//   const file = e.target.files[0];
-//   if (file) {
-//     previewImage.src = URL.createObjectURL(file);
-//     previewContainer.style.display = "block";
-//   }
-// };
-
 // Clear Preview
 function clearPreview() {
-  // previewImage.src = "";
   previewContainer.style.display = "none";
   console.log("closed");
-  // imageInput.value = "";
 }
 
 // Like Function
